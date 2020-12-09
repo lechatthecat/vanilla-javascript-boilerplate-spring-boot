@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// ヘッダーなどの共通設定はここで行う。
-// 全てのリクエスト、レスポンス共通処理なども設定できる https://github.com/axios/axios#interceptors
+// Common configuration like header is written here.
+// https://github.com/axios/axios#interceptors
+// But if springboot is used for creating API and its interceptors, I think this part isn't necessary.
 export const commonApi = axios.create({
   baseURL: process.env.BASE_URL,
   headers: {
