@@ -44,10 +44,6 @@ npm run build:development
 - Open this project with vscode and press on F5 on your keyboard. 
 Then this app should be working on: http://localhost:8080
 
-```
-npm run dev
-```
-
 5. Build commands
 
 - There are 3 build commands.
