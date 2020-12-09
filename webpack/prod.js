@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./common');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const outputFile = '[name]';
 const assetFile = '[name]';
@@ -29,6 +30,10 @@ module.exports = (env) => {
           }),
           // Optimzie css code
           new OptimizeCssPlugin(),
+          // clean the directory (except robot.txt)
+          new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['**/*', '!robot.txt'],
+          }),
         ],
       },
     }
