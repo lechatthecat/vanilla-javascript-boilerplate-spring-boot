@@ -2,11 +2,6 @@
 
 A **MPA (Multi Page Application)** boilerplate of Vanilla-JavaScript, SCSS with Webpack 4 with Springboot.
 
-# Summary
-
-- This project was forked from [astatsuya/vanilla-javascript-boilerplate](https://github.com/astatsuya/vanilla-javascript-boilerplate)
-- Do not use auto save functionality because the code is formatted when the code is saved (manually).
-
 # Environment
 
 - Visual Studio Code Version: 1.44.2
