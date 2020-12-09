@@ -1,8 +1,7 @@
 {
-  "name": "vanilla-javacript-boilerplate",
+  "name": "web",
   "version": "1.0.0",
   "private": true,
-  "description": "A boilerplate of Vanilla-JavaScript, SCSS with Webpack 4",
   "main": "index.js",
   "scripts": {
     "eslint": "eslint --fix 'src/**/*.js'",
@@ -11,13 +10,9 @@
     "json-server": "npx json-server --watch mockDB.json --port 3001",
     "webpack-server": "npx webpack-dev-server --env.file=development --config webpack/dev.js",
     "dev": "npm run json-server & npm run webpack-server",
-    "build:development": "npx webpack --env.file=development --config webpack/prod.js",
+    "build:development": "npx webpack --env.file=development --config webpack/dev.js",
     "build:staging": "npx webpack --env.file=staging --config webpack/prod.js",
     "build:production": "npx webpack --env.file=production --config webpack/prod.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/astatsuya/vanilla-javascript-boilerplate"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -28,6 +23,7 @@
     "babel-loader": "^8.1.0",
     "browserlist": "^1.0.1",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.4.0",
     "css-loader": "^3.6.0",
     "dotenv-webpack": "^2.0.0",
     "eslint": "^7.4.0",

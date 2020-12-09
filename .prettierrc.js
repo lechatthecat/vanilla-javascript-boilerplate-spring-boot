@@ -1,5 +1,6 @@
 module.exports = {
-  // フォーマットに関する設定は全てここで行う。
-  // 設定できる項目はこちら参照。https://prettier.io/docs/en/options.html
+  // Configuration on code formatting
+  // More details can be found on 
+  // https://prettier.io/docs/en/options.html
   singleQuote: true,
 };

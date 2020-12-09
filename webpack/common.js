@@ -1,26 +1,35 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
   return {
     entry: {
-      // htmlが増える毎にここに追記
-      // htmlページ名:そのhtmlの親となるjsファイル
-      index: path.resolve(__dirname, '../src/pages/index.js'),
-      'sample/index': path.resolve(__dirname, '../src/pages/sample/index.js'),
+      // Everytime html file is added, you have to add the path here.
+      // html page name: the js file name that will be parent of the html page.
+      'index': path.resolve(__dirname, '../src/main/resources/templates/index.js'),
+      'sample/index': path.resolve(__dirname, '../src/main/resources/templates/sample/index.js'),
     },
     output: {
       filename: `./js/${outputFile}.js`,
-      path: path.resolve(__dirname, '../dist'),
+      path: path.resolve(__dirname, '../src/main/resources/static/public'),
     },
     plugins: [
-      // cssをcssファイルとして抽出する
+      // Extract css files
       new MiniCssExtractPlugin({
         filename: `./css/${outputFile}.css`,
       }),
-      // .envファイルを使えるようにする
+      // enable .env file
       new Dotenv({ path: envFilePath }),
+      // Images are copied to the images folder as they are.
+      new CopyWebpackPlugin({
+        patterns: [
+            { 
+                from: path.resolve(__dirname, '../src/main/resources/assets/images'), to: path.resolve(__dirname, '../src/main/resources/static/public/assets/images'),
+            }
+        ]
+      })
     ],
     module: {
       rules: [
@@ -39,12 +48,12 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
         {
           test: /\.s[ac]ss$/i,
           use: [
-            // ここの順番は重要。下から順番に実行される
-            // jsにバンドルせずcssファイルとして出力する
+            // Executed from bottom to top, so the order is important.
+            // Extract as css files without bundling inside js files.
             MiniCssExtractPlugin.loader,
             // Translates CSS into CommonJS
             'css-loader',
-            // プレフィックスを自動で付与する
+            // Add prefixes automatically
             'postcss-loader',
             // Compiles Sass to CSS
             'sass-loader',
@@ -53,17 +62,17 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
         {
           test: /\.css$/i,
           use: [
-            // ここの順番は重要。下から順番に実行される
-            // jsにバンドルせずcssファイルとして出力する
+            // Executed from bottom to top, so the order is important.
+            // Extract as css files without bundling inside js files.
             MiniCssExtractPlugin.loader,
-            // cssをcommonJSに変換する
+            // Translates CSS into CommonJS
             'css-loader',
-            // プレフィックスを自動で付与する
+            // Add prefixes automatically
             'postcss-loader',
           ],
         },
         {
-          // 他の種類の静的ファイルを使用する場合は同様の記述で追加する。
+          // If you need other image file format, you have to add it here.
           test: /\.(png|svg|jpe?g|gif)$/,
           use: [
             {
@@ -71,7 +80,7 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
               options: {
                 name: `${assetFile}.[ext]`,
                 outputPath: 'assets/images/',
-                // 画像の保存先によってパスを変更する。
+                // Specify the path where the images will be saved.
                 publicPath: `${assetPath}assets/images/`,
               },
             },
@@ -85,24 +94,20 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
               options: {
                 name: `${assetFile}.[ext]`,
                 outputPath: 'assets/fonts/',
-                // 画像の保存先によってパスを変更する。
+                // Specify the path where the images will be saved.
                 publicPath: `${assetPath}assets/fonts/`,
               },
             },
           ],
         },
-        {
-          test: /\.html$/,
-          use: ['html-loader'],
-        },
       ],
     },
     resolve: {
-      // 絶対パスでインポートできるようにする。
+      // Enabling imports by absolute path
       alias: {
-        '@js': path.resolve(__dirname, '../src/js'),
-        '@scss': path.resolve(__dirname, '../src/scss'),
-        '@assets': path.resolve(__dirname, '../src/assets'),
+        '@js': path.resolve(__dirname, '../src/main/resources/js'),
+        '@scss': path.resolve(__dirname, '../src/main/resources/scss'),
+        '@assets': path.resolve(__dirname, '../src/main/resources/assets'),
       },
       extensions: ['.js'],
     },

@@ -1,4 +1,4 @@
 *.html
 dist/
-# ドットで始まるファイルも監視する。
+# Watch files which have names that start with dot.
 !.*.js

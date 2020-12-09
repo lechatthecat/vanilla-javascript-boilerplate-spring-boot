@@ -1,7 +1,10 @@
-# 対応するブラウザを指定する。bable(JSの構文変換), postcssでautoprefixer(cssの構文変換)で読み込まれている。
-# 通常はdefaults。詳しくはhttps://github.com/browserslist/browserslist#best-practices
+# Specify compatible browsers here. Code conversion is done by bable(JS), 
+# postcssautoprefixer(css). This configuration is used by them.
+# By default, it is specified as "defaults".
+# For more detail, https://github.com/browserslist/browserslist#best-practices
 
 defaults
 
-# defaults以外を指定したい場合はこちらを参照。cover99.5%でダメなら多分コードを変えないとダメ。 https://github.com/browserslist/browserslist#full-list
+# If you want to specify other configuration then "default", see https://github.com/browserslist/browserslist#full-list
 # cover 99.5%
+# If 99.5% isn't enough, maybe you have to change the code.

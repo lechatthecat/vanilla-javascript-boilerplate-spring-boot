@@ -1,59 +1,61 @@
-# Vanilla-JavaScript-boilerplate
+# Vanilla-JavaScript-boilerplate-springboot
 
-A boilerplate of Vanilla-JavaScript, SCSS with Webpack 4
+A **MPA (Multi Page Application)** boilerplate of Vanilla-JavaScript, SCSS with Webpack 4 with Springboot.
 
-# コンセプト
+# Summary
 
-- とりあえず JavaScript のコードだけを書き進められる環境を構築。
-- ファイルの変更を検知し、ブラウザが自動でリロードされる。
-- .env ファイルの設定をしているので、環境毎に値を変える必要がある部分は env ディレクトリ配下の各.env ファイルを使用する。
-- API が用意出来ていない場合は用意している json-sever を使用すれば手戻りの少ない開発ができる。
-- セーブ時にオートフォーマットをする前提で環境を構築しているので、IDE のオートセーブはオフにする。
+- This project was forked from [astatsuya/vanilla-javascript-boilerplate](https://github.com/astatsuya/vanilla-javascript-boilerplate)
+- Do not use auto save functionality because the code is formatted when the code is saved (manually).
 
-# 推奨環境
+# Environment
 
 - Visual Studio Code Version: 1.44.2
 - node 12.16.3
 
-# 開発環境構築
+# Create development environment
 
-1. Visual Studio Code Version: 1.44.2 をインストール
-2. Visual Studio Code の拡張機能を追加
+1. Install Visual Studio Code (Version: 1.44.2)
+2. Add the following extensions:
 
 ```
 ESLint
 Prettier - Code formatter
 styleLint
-Live Server(ビルド後の動作確認で使用)
 ```
 
-3. パッケージインストール
+3. Install npm packages
 
-- node が入っているか確認。下記のようになれば OK。
+- Check the node version as follows. Maybe use nvm and install node v12 would be more convenient.
 
 ```
 node -v
 v12.16.3
 ```
 
-- 各種パッケージをインストール
+Then install npm packages:
 
 ```
 npm i
 ```
 
-4. ローカル開発環境の立ち上げ
+The build js/scss as follows:
 
-- json-server と webpack-server を立ち上げる
-- ローカル開発環境では`env/.env.development`のファイルを読むように設定している
+```
+npm run build:development
+```
+
+4. Start local development environment
+
+- Open this project with vscode and press on F5 on your keyboard. 
+Then this app should be working on: http://localhost:8080
 
 ```
 npm run dev
 ```
 
-5. ビルド
+5. Build commands
 
-- ビルドコマンドを下記の 3 種類。
+- There are 3 build commands.
 
 ```
 npm run build:development
@@ -61,53 +63,29 @@ npm run build:staging
 npm run build:production
 ```
 
-- 読み込みむ env ファイルがそれぞれ異なる。それ以外の違いはない。
-- また、ビルド時に console を消去する設定を`webpack.prod.js`の optimizer で行なっている。
-- ビルド後のソースは`dist`ディレクトリに保存される。また、`live-server`で起動すればビルド後のソースの動作確認ができる。
+6. Add html pages
 
-6. html ページを追加する。
+- Add new html page under `src/main/resources/templates` directory, then add new `entry` on `webpack.common.js`.
 
-- `pages`ディレクトリの配下に html ファイルを追加し、`webpack.common.js`の`entry`に追記する。
-  詳しくは[src/ディレクトリの説明.md](https://github.com/astatsuya/TypeScript-boilerplate/blob/master/src/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AE%E8%AA%AC%E6%98%8E.md)参照
+- Auto format setting is writtem on `settings.json` in `.vscode`.
 
-7. IDE の設定
 
-- オートセーブはオフにする。
+7. Browser compatibility
 
-```
-セーブコマンド実行時に合わせて実行されるオートフォーマットが効かない
-ESLintのエラーが出ている状態ではビルドに失敗する
-文字を入力するたびにブラウザが際レンダリングされてしまう
-```
+- Compatibility can be configured on `.browserslistrc`. Most browsers should be covered with current configuration.
+- `babel`(JavaScript), `postcss-loader`(css), `.browserslistrc` converts js/css codes to support backward compatibility.
 
-等がある。
+8. Format
 
-- オートフォーマットのために`.vscode`の`settings.json`も共有するようにしている。
-- Visual Studio Code 以外でも動作するが、セーブ時に eslint, stylelint, prettier を使用してフォーマットをかける用に設定し、他の開発者とフォーマットの差が出ないようにして欲しい。
-
-8. 対応ブラウザについて
-
-- `.browserslistrc`で設定する。大抵のブラウザをカバーするように設定している。
-- `babel`(JavaScript)、と`postcss-loader`(css)が`.browserslistrc`の設定を見てコンバートしている。
-
-9. scss, css について
-
-- `.browserlistrc`の設定を見て自動でベンダープレフィクスを付与する設定にしているので、ベンダープレフィクスは書く必要はない。
-- どちらも利用可能だが、scss を書いたことがない人も scss ファイルを使用することを推奨。
-  css そのままの記法もできるので、小さく始められる。
-- stylelint に scss をする順番をチェックしている。こちらも保存時にオートフォーマットされるが、順番を修正するために 2 度保存する必要がある。
-
-10. フォーマットについて
-
-- フォーマットはコマンドでも実行できる。
+- The code can be formatted via commands, but maybe java code isn't formatted by these commands.
 
 ```
-- eslintとstylelintを実行
+- Execute eslint and stylelint
 npm run format
 
-- eslintのみを実行
+- Execute eslint
 npm run eslint
 
-- stylelintのみを実行
+- Execute stylelint
 npm run stylelint
 ```

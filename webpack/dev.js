@@ -1,54 +1,32 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./common');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 const outputFile = '[name]';
 const assetFile = '[name]';
-const assetPath = '/';
+const assetPath = '/public/';
 
 module.exports = (env) => {
-  // package.jsonのscriptで --env.envFile=で指定されたパスのenvFileを使用する。
-  // 指定されていない場合は.env.developmentを使用する
+  // Get envFile specified by "--env.envFile=" in "script" on package.json.
+  // If nothing is specified, ".env.development" is used.
   const envFilePath = env ? `./env/.${env.file}` : './env/.development';
-
-  // webpack.common.jsのentryで追加したhtmlファイルを動的に生成する。
-  const createHtmlPlugins = (entry) => {
-    const htmpPlugins = [];
-    Object.keys(entry).forEach((key) => {
-      htmpPlugins.push(
-        new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, `../src/pages/${key}.html`),
-          // 出力されるファイル名
-          filename: `${key}.html`,
-          // headにjsファイルを入れたい場合はheadを指定
-          inject: 'body',
-          // 読み込むjsファイルを指定
-          chunks: [key],
-        })
-      );
-    });
-    return htmpPlugins;
-  };
 
   return merge(
     commonConfig({ outputFile, assetFile, envFilePath, assetPath }),
     {
       mode: 'development',
       devtool: 'inline-source-map',
-      plugins: createHtmlPlugins(
-        commonConfig({ outputFile, assetFile, envFilePath, assetPath }).entry
-      ),
       devServer: {
-        contentBase: path.join(__dirname, '../dist'),
-        // どのブラウザを自動で立ち上げるか。trueで標準のブラウザ。デフォルトでは立ち上がらない。
+        contentBase: path.join(__dirname, '../src/main/resources/static/public'),
+        // Which browser should be used. If "true" is specified, dafault browser in your system will be used.
         // open: "Google Chrome",
         host: 'localhost',
         compress: true,
-        // port番号はデフォルトで8080, 既に使用されている場合は自動で8181になる。指定したい場合はここでする。
+        // port number is 8080 by default, if 8080 is used by other process, 8181 is used.
+        // But Spring boot's tomcat will always use 8080.
         // port: 3000,
         watchOptions: {
-          // 差分を検知しないディレクトリ
+          // This folder is ignored when the file differences are watched.
           ignored: /node_modules/,
         },
       },
