@@ -1,7 +1,6 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./common');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
 const outputFile = '[name]';
 const assetFile = '[name]';
 const assetPath = '/public/';
