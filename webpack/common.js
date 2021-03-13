@@ -34,12 +34,6 @@ module.exports = ({ outputFile, assetFile, envFilePath, assetPath }) => {
     module: {
       rules: [
         {
-          enforce: 'pre',
-          test: /\.js$/,
-          use: 'eslint-loader',
-          exclude: /node_modules/,
-        },
-        {
           test: /\.js$/,
           // transpile
           use: 'babel-loader',
