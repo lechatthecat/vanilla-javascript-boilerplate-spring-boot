@@ -29,7 +29,7 @@ npm i
 The build js/scss as follows:
 
 ```
-npm run build:development
+npm run build
 ```
 
 3. Start local development environment
@@ -42,9 +42,9 @@ Then this app should be working on: http://localhost:8080
 - There are 3 build commands.
 
 ```
-npm run build:development
-npm run build:staging
+npm run build
 npm run build:production
+npm run watch
 ```
 
 5. Add html pages
